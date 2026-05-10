@@ -666,75 +666,122 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ CONTACT / FOOTER ═══════════════════ -->
-  <section class="contact" id="contact">
-    <div class="contact__inner">
-      <div class="contact__header">
-        <span class="contact__tag">( WITH LOVE )</span>
-        <span class="contact__tag">BY</span>
-        <span class="contact__tag contact__tag--name">S/K®</span>
-      </div>
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="footer" id="contact">
+    <!-- Decorative cross at top -->
+    <div class="footer__cross-top">+</div>
 
-      <div class="contact__grid">
-        <div class="contact__info">
-          <div class="contact__info-item">
-            <span class="contact__info-label">Email</span>
-            <a href="mailto:sahilkamble25614@gmail.com" class="contact__info-value">sahilkamble25614@gmail.com</a>
+    <div class="footer__inner">
+      <!-- ── TOP ROW: Big heading + 3 columns ────────────── -->
+      <div class="footer__top">
+        <div class="footer__heading">
+          <h2 class="footer__title">LET'S BUILD<br>SOMETHING<br><span class="footer__title--accent">ICONIC.</span></h2>
+        </div>
+
+        <div class="footer__columns">
+          <!-- Navigation -->
+          <div class="footer__col">
+            <span class="footer__col-title">NAVIGATION</span>
+            <ul class="footer__col-list">
+              <li><a href="#hero" class="footer__link"><span class="footer__link-plus">+</span> ABOUT</a></li>
+              <li><a href="#projects" class="footer__link"><span class="footer__link-plus">+</span> PROJECTS</a></li>
+              <li><a href="#experience" class="footer__link"><span class="footer__link-plus">+</span> EXPERIENCE</a></li>
+              <li><a href="#skills" class="footer__link"><span class="footer__link-plus">+</span> SKILLS</a></li>
+              <li><a href="#contact" class="footer__link"><span class="footer__link-plus">+</span> CONTACT</a></li>
+            </ul>
           </div>
-          <div class="contact__info-item">
-            <span class="contact__info-label">Phone</span>
-            <a href="tel:+917620422387" class="contact__info-value">+91 76204 22387</a>
+
+          <!-- Resources -->
+          <div class="footer__col">
+            <span class="footer__col-title">RESOURCES</span>
+            <ul class="footer__col-list">
+              <li><a href="#" class="footer__link"><span class="footer__link-plus">+</span> RESUME</a></li>
+              <li><a href="#education" class="footer__link"><span class="footer__link-plus">+</span> CERTIFICATIONS</a></li>
+              <li><a href="#" class="footer__link footer__link--dim"><span class="footer__link-plus">+</span> BLOG (COMING SOON)</a></li>
+              <li><a href="#" class="footer__link"><span class="footer__link-plus">+</span> CASE STUDIES</a></li>
+              <li><a href="#" class="footer__link"><span class="footer__link-plus">+</span> TOOLS I USE</a></li>
+            </ul>
           </div>
-          <div class="contact__info-item">
-            <span class="contact__info-label">Location</span>
-            <span class="contact__info-value">Yerwada, Pune, MH</span>
+
+          <!-- Get in Touch -->
+          <div class="footer__col">
+            <span class="footer__col-title">GET IN TOUCH</span>
+            <ul class="footer__col-list footer__col-list--contact">
+              <li>
+                <a href="tel:+917620422387" class="footer__link">
+                  <span class="footer__contact-icon">✆</span> +91 76204 22387
+                </a>
+              </li>
+              <li>
+                <a href="mailto:sahilkamble25614@gmail.com" class="footer__link">
+                  <span class="footer__contact-icon">✉</span> sahilkamble25614@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/sahil-g-kamble" target="_blank" class="footer__link">
+                  <span class="footer__contact-icon">in</span> linkedin/sahil-g-kamble
+                </a>
+              </li>
+              <li>
+                <span class="footer__link footer__link--static">
+                  <span class="footer__contact-icon">⊙</span> Yerwada, Pune, MH
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
+      </div>
 
-        <div class="contact__social">
-          <a href="https://linkedin.com/in/sahil-g-kamble" target="_blank" class="contact__social-link">
-            LinkedIn
-            <span class="contact__social-arrow">→</span>
-          </a>
-          <a href="mailto:sahilkamble25614@gmail.com" class="contact__social-link">
-            Email
-            <span class="contact__social-arrow">→</span>
-          </a>
-          <a href="https://nirogos.in" target="_blank" class="contact__social-link">
-            NirogOS
-            <span class="contact__social-arrow">→</span>
-          </a>
+      <!-- ── MIDDLE ROW: Decorations + Newsletter ────────── -->
+      <div class="footer__middle">
+        <!-- Tape label -->
+        <div class="footer__tape-label">
+          <span class="footer__tape-text">PORTFOLIO.EXE</span>
+          <span class="footer__tape-sub">THANKS FOR SCROLLING</span>
+          <span class="footer__tape-asterisk">✳</span>
+        </div>
+
+        <!-- Rotating badge -->
+        <div class="footer__rotating-badge" id="footer-badge">
+          <svg viewBox="0 0 200 200" width="110" height="110">
+            <defs>
+              <path id="footerCirclePath" d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0" />
+            </defs>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="var(--yellow)" stroke-width="1.5" />
+            <text font-family="'Space Mono', monospace" font-size="11.5" fill="var(--yellow)" letter-spacing="4">
+              <textPath href="#footerCirclePath">BUILDING IDEAS • GLOBAL MARKET • </textPath>
+            </text>
+            <text x="100" y="106" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="32" fill="var(--yellow)">☺</text>
+          </svg>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="footer__newsletter">
+          <h3 class="footer__newsletter-title">STAY IN THE LOOP.</h3>
+          <p class="footer__newsletter-desc">Updates on new projects, insights, and things I'm building.</p>
+          <form class="footer__newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Enter your email" class="footer__newsletter-input" id="footer-email" />
+            <button type="submit" class="footer__newsletter-btn" id="footer-subscribe">SUBSCRIBE</button>
+          </form>
         </div>
       </div>
 
-      <div class="contact__languages">
-        <span class="contact__lang">English — Fluent</span>
-        <span class="contact__lang-sep">·</span>
-        <span class="contact__lang">Marathi — Native</span>
-        <span class="contact__lang-sep">·</span>
-        <span class="contact__lang">Hindi — Fluent</span>
-      </div>
+      <!-- ── BOTTOM BAR ──────────────────────────────────── -->
+      <div class="footer__bottom">
+        <span class="footer__copyright">© 2026 SAHIL KAMBLE. ALL RIGHTS RESERVED.</span>
 
-      <div class="contact__decorators">
-        <span>+</span>
-        <span>+</span>
-        <span>+</span>
-      </div>
+        <div class="footer__barcode">
+          <span>▐▌▐▐▌▌▐▐▌▐▌▐▐▌▌▐▌▐▐▌▌▐▐▌▐▌▐▐▌▌▐▌▐▐▌▌▐▐▌▐▌</span>
+        </div>
 
-      <div class="contact__bottom">
-        <div class="contact__bottom-left">
-          <span>Created for Creativity</span>
-          <span>Portfolio of Sahil Kamble</span>
-        </div>
-        <div class="contact__bottom-center">
-          <span>Est. 2026 // SahilKamble™</span>
-        </div>
-        <div class="contact__bottom-right">
-          <span>© 2026 Sahil Kamble, All Rights Reserved</span>
-        </div>
+        <span class="footer__made-in">MADE WITH ☺ &amp; ✎ IN PUNE, INDIA</span>
+
+        <a href="#hero" class="footer__back-top" id="footer-back-top">
+          BACK TO TOP <span class="footer__back-arrow">↗</span>
+        </a>
       </div>
     </div>
-  </section>
+  </footer>
 
   <!-- ═══════════════════ INTERESTS FLOATING BADGE ═══════════════════ -->
   <div class="interests-badge" id="interests-badge">

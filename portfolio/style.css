@@ -1913,198 +1913,359 @@ body::before {
     -webkit-text-stroke: 1px var(--text-muted);
 }
 
-/* ─── CONTACT / FOOTER SECTION ──────────────────────────────── */
-.contact {
-    padding: 6rem 3rem 3rem;
-    border-top: 1px solid var(--border);
+/* ─── FOOTER SECTION ───────────────────────────────────────── */
+.footer {
+    position: relative;
+    padding: 0;
+    background: #0d0d0d;
+    border-top: 1px solid var(--border-light);
+    overflow: hidden;
 }
 
-.contact__inner {
-    max-width: 1200px;
-}
-
-.contact__header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 3rem;
-}
-
-.contact__tag {
+.footer__cross-top {
+    text-align: center;
+    padding: 1.5rem 0 0;
     font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-size: 1rem;
     color: var(--text-dim);
+    opacity: 0.5;
 }
 
-.contact__tag--name {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
+.footer__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem 3rem 0;
 }
 
-.contact__grid {
+/* ── TOP ROW ─────────────────────────────────────────────── */
+.footer__top {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    margin-bottom: 3rem;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
     padding-bottom: 3rem;
     border-bottom: 1px solid var(--border);
 }
 
-.contact__info {
+.footer__heading {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    align-items: flex-start;
 }
 
-.contact__info-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.contact__info-label {
-    font-family: var(--font-mono);
-    font-size: 8px;
-    letter-spacing: 0.2em;
+.footer__title {
+    font-family: 'Druk Cond Super Trial', var(--font-display);
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
     text-transform: uppercase;
-    color: var(--text-dim);
-}
-
-.contact__info-value {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.08em;
     color: var(--text);
-    transition: color 0.2s ease;
+    font-weight: 900;
+    font-style: italic;
 }
 
-a.contact__info-value:hover {
+.footer__title--accent {
     color: var(--yellow);
+    font-style: italic;
 }
 
-.contact__social {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+/* ── FOOTER COLUMNS ──────────────────────────────────────── */
+.footer__columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
 }
 
-.contact__social-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 0;
-    border-bottom: 1px solid var(--border);
+.footer__col-title {
+    display: block;
     font-family: var(--font-display);
-    font-size: 2.5rem;
-    letter-spacing: 0.04em;
+    font-size: 0.9rem;
+    letter-spacing: 0.14em;
     color: var(--text);
-    transition: color 0.3s ease, padding-left 0.3s var(--ease-out-expo);
-    overflow: hidden;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-light);
 }
 
-.contact__social-link:first-child {
-    border-top: 1px solid var(--border);
-}
-
-.contact__social-link:hover {
-    color: var(--yellow);
-    padding-left: 1rem;
-}
-
-.contact__social-arrow {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    transition: transform 0.3s var(--ease-out-expo);
-}
-
-.contact__social-link:hover .contact__social-arrow {
-    transform: translateX(6px);
-}
-
-.contact__languages {
+.footer__col-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.7rem;
 }
 
-.contact__lang {
+.footer__link {
     font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 0.12em;
+    font-size: 11px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.25s ease, padding-left 0.3s var(--ease-out-expo);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footer__link:hover {
+    color: var(--yellow);
+    padding-left: 4px;
+}
+
+.footer__link--dim {
+    color: var(--text-dim);
+    font-style: italic;
+}
+
+.footer__link--static {
+    cursor: default;
+}
+
+.footer__link-plus {
+    color: var(--yellow);
+    font-size: 10px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.footer__link:hover .footer__link-plus {
+    opacity: 1;
+}
+
+.footer__contact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+    font-size: 10px;
+    color: var(--yellow);
+    flex-shrink: 0;
+    font-style: normal;
+}
+
+/* ── MIDDLE ROW ──────────────────────────────────────────── */
+.footer__middle {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 2.5rem;
+    align-items: end;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Tape label */
+.footer__tape-label {
+    background: #1a1a1a;
+    border: 1px solid var(--border-light);
+    padding: 0.75rem 1.2rem;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    position: relative;
+    transform: rotate(-2deg);
+    max-width: 180px;
+}
+
+.footer__tape-label::before,
+.footer__tape-label::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 14px;
+    background: rgba(200, 200, 180, 0.12);
+    border: 1px solid rgba(200, 200, 180, 0.08);
+}
+
+.footer__tape-label::before {
+    top: -7px;
+    left: 10px;
+    transform: rotate(-3deg);
+}
+
+.footer__tape-label::after {
+    bottom: -7px;
+    right: 10px;
+    transform: rotate(2deg);
+}
+
+.footer__tape-text {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    color: var(--text);
+}
+
+.footer__tape-sub {
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    letter-spacing: 0.12em;
     color: var(--text-muted);
 }
 
-.contact__lang-sep {
-    color: var(--text-dim);
-    font-family: var(--font-mono);
-    font-size: 10px;
+.footer__tape-asterisk {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    color: var(--yellow);
+    font-size: 14px;
 }
 
-.contact__decorators {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    opacity: 0.2;
+/* Rotating badge */
+.footer__rotating-badge {
+    animation: spin-slow 16s linear infinite;
+    flex-shrink: 0;
+    align-self: center;
 }
 
-.contact__decorators span {
-    font-family: var(--font-mono);
-    font-size: 1.2rem;
+/* Newsletter */
+.footer__newsletter {
+    background: #1a1a1a;
+    border: 1px solid var(--border-light);
+    padding: 2rem 2.5rem;
+    position: relative;
+}
+
+.footer__newsletter::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 20px;
+    width: 60px;
+    height: 14px;
+    background: rgba(200, 200, 180, 0.1);
+    border: 1px solid rgba(200, 200, 180, 0.06);
+    transform: rotate(-1deg);
+}
+
+.footer__newsletter-title {
+    font-family: 'Druk Cond Super Trial', var(--font-display);
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
     color: var(--text);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+    font-weight: 900;
 }
 
-.contact__bottom {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 2rem;
-    align-items: center;
-    padding-top: 2rem;
-    border-top: 1px solid var(--border);
+.footer__newsletter-desc {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    max-width: 300px;
 }
 
-.contact__bottom-left {
+.footer__newsletter-form {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    gap: 0;
+    border: 1px solid var(--border-light);
 }
 
-.contact__bottom-left span {
+.footer__newsletter-input {
+    flex: 1;
+    background: #e8e0d4;
+    border: none;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: #0a0a0a;
+    outline: none;
+}
+
+.footer__newsletter-input::placeholder {
+    color: #6a6560;
+}
+
+.footer__newsletter-input:focus {
+    background: #f0ebe3;
+}
+
+.footer__newsletter-btn {
+    background: #0a0a0a;
+    color: var(--text);
+    border: none;
+    border-left: 1px solid var(--border-light);
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.footer__newsletter-btn:hover {
+    background: var(--yellow);
+    color: #0a0a0a;
+}
+
+/* ── BOTTOM BAR ──────────────────────────────────────────── */
+.footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer__copyright {
     font-family: var(--font-mono);
     font-size: 9px;
     letter-spacing: 0.12em;
-    text-transform: uppercase;
     color: var(--text-dim);
-}
-
-.contact__bottom-center {
-    text-align: center;
-}
-
-.contact__bottom-center span {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.15em;
     text-transform: uppercase;
+}
+
+.footer__barcode {
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1;
     color: var(--text-dim);
+    opacity: 0.3;
+    letter-spacing: -1px;
+    user-select: none;
 }
 
-.contact__bottom-right {
-    text-align: right;
-}
-
-.contact__bottom-right span {
+.footer__made-in {
     font-family: var(--font-mono);
     font-size: 9px;
     letter-spacing: 0.1em;
     color: var(--text-dim);
+    text-transform: uppercase;
 }
+
+.footer__back-top {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.footer__back-top:hover {
+    color: var(--yellow);
+}
+
+.footer__back-arrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s var(--ease-out-expo);
+}
+
+.footer__back-top:hover .footer__back-arrow {
+    transform: translateY(-3px);
+}
+
 
 /* ─── INTERESTS FLOATING BADGE ──────────────────────────────── */
 .interests-badge {
@@ -2358,29 +2519,46 @@ a.contact__info-value:hover {
         font-size: 3.5rem;
     }
 
-    /* Contact */
-    .contact {
-        padding: 4rem 1.25rem 2rem;
+    /* Footer */
+    .footer__inner {
+        padding: 2rem 1.25rem 0;
     }
 
-    .contact__grid {
+    .footer__top {
         grid-template-columns: 1fr;
-        gap: 2.5rem;
+        gap: 2rem;
     }
 
-    .contact__social-link {
-        font-size: 1.8rem;
+    .footer__title {
+        font-size: 2.5rem;
     }
 
-    .contact__bottom {
+    .footer__columns {
         grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer__middle {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .footer__rotating-badge {
+        display: none;
+    }
+
+    .footer__barcode {
+        display: none;
+    }
+
+    .footer__bottom {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 1rem;
-        text-align: left;
     }
 
-    .contact__bottom-right,
-    .contact__bottom-center {
-        text-align: left;
+    .footer__newsletter {
+        padding: 1.5rem;
     }
 
     /* Interests badge */
@@ -2419,8 +2597,16 @@ a.contact__info-value:hover {
         gap: 1.25rem;
     }
 
-    .contact__social-link {
-        font-size: 2rem;
+    .footer__columns {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer__middle {
+        grid-template-columns: auto 1fr;
+    }
+
+    .footer__tape-label {
+        display: none;
     }
 }
 
@@ -2435,8 +2621,12 @@ a.contact__info-value:hover {
     .skills,
     .experience,
     .projects,
-    .education,
-    .contact {
+    .education {
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+
+    .footer__inner {
         padding-left: 5rem;
         padding-right: 5rem;
     }

@@ -348,7 +348,6 @@ const state = {
         { el: '.experience', children: '.experience__header > *, .experience__card' },
         { el: '.projects', children: '.projects__header, .project-card' },
         { el: '.education', children: '.education__header > *, .education__item, .certifications' },
-        { el: '.contact', children: '.contact__header, .contact__grid > *, .contact__languages, .contact__bottom > *' },
     ];
 
     sections.forEach(({ el, children }) => {
@@ -996,28 +995,77 @@ ScrollTrigger.create({
 });
 
 /* ═══════════════════════════════════════════════════════════════
-   BONUS — CONTACT SOCIAL LINKS STAGGER
+   BONUS — FOOTER REVEAL ANIMATION
 ═══════════════════════════════════════════════════════════════ */
-(function initContactReveal() {
-    const socialLinks = document.querySelectorAll('.contact__social-link');
-    if (!socialLinks.length) return;
+(function initFooterReveal() {
+    const footerTitle = document.querySelector('.footer__title');
+    const footerCols = document.querySelectorAll('.footer__col');
+    const footerMiddle = document.querySelector('.footer__middle');
 
-    gsap.set(socialLinks, { x: 30, opacity: 0 });
+    if (footerTitle) {
+        gsap.set(footerTitle, { y: 40, opacity: 0 });
+        ScrollTrigger.create({
+            trigger: '.footer__top',
+            start: 'top 82%',
+            once: true,
+            onEnter: () => {
+                gsap.to(footerTitle, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.9,
+                    ease: 'power3.out',
+                });
+            },
+        });
+    }
 
-    ScrollTrigger.create({
-        trigger: '.contact__social',
-        start: 'top 82%',
-        once: true,
-        onEnter: () => {
-            gsap.to(socialLinks, {
-                x: 0,
-                opacity: 1,
-                duration: 0.75,
-                stagger: 0.1,
-                ease: 'power3.out',
+    if (footerCols.length) {
+        gsap.set(footerCols, { y: 30, opacity: 0 });
+        ScrollTrigger.create({
+            trigger: '.footer__columns',
+            start: 'top 85%',
+            once: true,
+            onEnter: () => {
+                gsap.to(footerCols, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    stagger: 0.12,
+                    ease: 'power3.out',
+                });
+            },
+        });
+    }
+
+    if (footerMiddle) {
+        gsap.set(footerMiddle, { y: 20, opacity: 0 });
+        ScrollTrigger.create({
+            trigger: footerMiddle,
+            start: 'top 88%',
+            once: true,
+            onEnter: () => {
+                gsap.to(footerMiddle, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                });
+            },
+        });
+    }
+
+    /* Back to top smooth scroll */
+    const backTop = document.getElementById('footer-back-top');
+    if (backTop) {
+        backTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            gsap.to(window, {
+                duration: 1.4,
+                scrollTo: { y: '#hero', offsetY: 0 },
+                ease: 'power3.inOut',
             });
-        },
-    });
+        });
+    }
 })();
 
 /* ═══════════════════════════════════════════════════════════════
