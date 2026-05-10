@@ -2492,6 +2492,16 @@ a.contact__info-value:hover {
     animation: none;
 }
 
+/* ─── WAVE / MAGNIFIER ANIMATION STATE ───────────────────────── */
+/* Applied by JS sequentially to each letter after the loader finishes.
+   Creates the Warhol-style red magnifier wave from S → L. */
+.hero-letter.hero-letter--wave-active {
+    color: #ff4422 !important;
+    -webkit-text-fill-color: #ff4422 !important;
+    text-shadow: none !important;
+    filter: none !important;
+}
+
 @keyframes letter-hover-pop {
     0% {
         transform: scale(1.25);

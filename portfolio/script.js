@@ -118,6 +118,11 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
             setTimeout(() => {
                 loader.classList.add('is-done');
 
+                /* Fire the magnifier wave as the loader fades out */
+                setTimeout(() => {
+                    triggerHeroWave();
+                }, 400);
+
                 /* Remove from DOM after transition */
                 setTimeout(() => {
                     loader.style.display = 'none';
@@ -139,6 +144,55 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
     });
     observer.observe(loader, { attributes: true, attributeFilter: ['class'] });
 })();
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO WAVE — Magnifier animation across S → A → H → I → L
+   Fires once after the loading screen is dismissed.
+   Each letter scales up with a red Warhol glow, then returns
+   to its original color. The existing hover mask is preserved.
+═══════════════════════════════════════════════════════════════ */
+function triggerHeroWave() {
+    const letters = document.querySelectorAll('.hero-letter');
+    if (!letters.length) return;
+
+    const waveTL = gsap.timeline({
+        onComplete: () => {
+            /* Clean up — ensure all letters are back to default */
+            letters.forEach((letter) => {
+                letter.classList.remove('hero-letter--wave-active');
+                letter.style.transform = '';
+            });
+        },
+    });
+
+    /* Stagger wave: each letter scales up (magnifier), turns red,
+       then scales back down and returns to original color */
+    letters.forEach((letter, i) => {
+        const delay = i * 0.18; /* 180ms between each letter */
+
+        /* Scale UP + turn red */
+        waveTL.to(letter, {
+            scale: 1.35,
+            y: -12,
+            duration: 0.35,
+            ease: 'power2.out',
+            onStart: () => {
+                letter.classList.add('hero-letter--wave-active');
+            },
+        }, delay);
+
+        /* Scale BACK DOWN + revert color */
+        waveTL.to(letter, {
+            scale: 1,
+            y: 0,
+            duration: 0.45,
+            ease: 'power3.inOut',
+            onComplete: () => {
+                letter.classList.remove('hero-letter--wave-active');
+            },
+        }, delay + 0.35);
+    });
+}
 
 /* ─── GLOBAL STATE ──────────────────────────────────────────── */
 const state = {
