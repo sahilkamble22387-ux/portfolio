@@ -13,6 +13,22 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Druk Cond Super Trial';
+    src: url('assets/DrukCond-Super-Trial.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Druk Wide Trial';
+    src: url('assets/DrukWide-Bold-Trial.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
 /* ─── CSS VARIABLES ─────────────────────────────────────────── */
 :root {
     --bg: #0a0a0a;
@@ -40,6 +56,304 @@
     --font-serif: 'Playfair Display', serif;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   LOADING SCREEN — Warhol Editorial Cross-Grid
+═══════════════════════════════════════════════════════════════ */
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    background: #0a0a0a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+        transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.loader.is-done {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.05);
+}
+
+.loader__grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: grain-shift 8s steps(1) infinite;
+}
+
+/* ─── Top-Left Metadata ──────────────────────────────────────── */
+.loader__meta-left {
+    position: absolute;
+    top: 2.5rem;
+    left: 2.5rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.loader__meta-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+}
+
+.loader__meta-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(232, 224, 212, 0.35);
+    min-width: 65px;
+}
+
+.loader__meta-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(232, 224, 212, 0.6);
+    min-width: 110px;
+}
+
+.loader__meta-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    color: rgba(232, 224, 212, 0.35);
+    margin-left: 1rem;
+}
+
+/* ─── Top-Right Categories ───────────────────────────────────── */
+.loader__meta-right-top {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.loader__categories {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.loader__categories span {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(232, 224, 212, 0.5);
+}
+
+.loader__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #c8e64a;
+    margin-top: 2px;
+    animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* ─── Center Cross Grid ──────────────────────────────────────── */
+.loader__cross-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 88px);
+    grid-template-rows: repeat(6, 88px);
+    gap: 2px;
+    z-index: 2;
+    position: relative;
+    background: transparent; /* gaps are transparent so loader bg shows through */
+}
+
+.loader__cell {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Corners of the plus shape — transparent so loader bg + grain shows through */
+.loader__cell--empty {
+    background-color: transparent;
+}
+
+/* Image cells piece together the single background image */
+.loader__cell--img {
+    background-color: #c8e64a;
+    background-size: calc(88px * 5 + 2px * 4) calc(88px * 6 + 2px * 5);
+    background-repeat: no-repeat;
+}
+
+/* Duotone filter overlay on image pieces */
+.loader__cell--img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #c8e64a;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+/* Missing puzzle piece — transparent so it blends perfectly with background */
+.loader__cell--img.is-solid {
+    background-image: none !important;
+    background-color: transparent;
+}
+
+.loader__cell--img.is-solid::after {
+    display: none;
+}
+
+/* ─── Bottom-Left Exhibit ────────────────────────────────────── */
+.loader__exhibit {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.loader__exhibit-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(232, 224, 212, 0.35);
+    display: block;
+    line-height: 1.5;
+}
+
+.loader__exhibit-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: rgba(232, 224, 212, 0.5);
+    display: block;
+    margin-top: 4px;
+}
+
+/* ─── Bottom Progress Bar ────────────────────────────────────── */
+.loader__progress-bar {
+    position: absolute;
+    bottom: 3.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(280px, 30vw);
+    height: 3px;
+    background: rgba(232, 224, 212, 0.08);
+    z-index: 2;
+    overflow: hidden;
+}
+
+.loader__progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, #c8e64a, #e0f050);
+    transition: width 0.15s ease-out;
+}
+
+/* ─── Bottom-Right Loading Counter ───────────────────────────── */
+.loader__counter {
+    position: absolute;
+    bottom: 2rem;
+    right: 2.5rem;
+    z-index: 2;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.loader__counter-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(232, 224, 212, 0.4);
+    align-self: flex-end;
+    margin-bottom: 4px;
+}
+
+.loader__counter-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 7rem;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    color: #c8e64a;
+    font-weight: 400;
+}
+
+.loader__counter-pct {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.6rem;
+    color: rgba(200, 230, 74, 0.6);
+    align-self: flex-start;
+    margin-top: 8px;
+}
+
+/* ─── Loader Mobile Adjustments ──────────────────────────────── */
+@media (max-width: 768px) {
+    .loader__meta-left {
+        top: 1.5rem;
+        left: 1.5rem;
+    }
+
+    .loader__meta-desc {
+        display: none;
+    }
+
+    .loader__meta-right-top {
+        top: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .loader__cross-grid {
+        grid-template-columns: repeat(5, 52px);
+        grid-template-rows: repeat(6, 52px);
+    }
+
+    .loader__cell--img {
+        background-size: calc(52px * 5 + 2px * 4) calc(52px * 6 + 2px * 5);
+    }
+
+    .loader__exhibit {
+        bottom: 1.5rem;
+        left: 1.5rem;
+    }
+
+    .loader__counter {
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .loader__counter-num {
+        font-size: 4rem;
+    }
+
+    .loader__progress-bar {
+        bottom: 2.5rem;
+        width: min(160px, 25vw);
+    }
+}
 /* ─── RESET & BASE ──────────────────────────────────────────── */
 *,
 *::before,
@@ -465,7 +779,7 @@ body::before {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    font-family: var(--font-display);
+    font-family: 'Druk Cond Super Trial', var(--font-display);
     font-size: 28vw;
     line-height: 0.8;
     letter-spacing: -0.04em;
@@ -474,7 +788,6 @@ body::before {
     user-select: none;
     font-weight: 900;
     transform: translateY(-10vh);
-    -webkit-text-stroke: 2px currentColor;
 }
 
 .hero__title-line {
@@ -496,7 +809,6 @@ body::before {
     position: relative;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
         color 0.3s ease,
-        text-shadow 0.3s ease,
         filter 0.4s ease;
     -webkit-text-fill-color: currentColor;
     background-clip: text;
@@ -506,10 +818,10 @@ body::before {
     background-repeat: no-repeat;
     will-change: transform;
     margin-right: -0.06em;
-    text-shadow:
-        2px 3px 0px rgba(0, 0, 0, 0.3),
-        -1px -1px 0px rgba(255, 255, 255, 0.04);
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.hero-letter--wide {
+    font-family: 'Druk Wide Trial', var(--font-display);
 }
 
 .hero__title-accent {
@@ -2168,40 +2480,43 @@ a.contact__info-value:hover {
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
-    background-size: cover;
-    background-position: center;
+    background-size: 100% 100%;
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    text-shadow: none;
+    filter: none;
 }
 
 /* When un-hovering, the letter snaps back to solid text */
 .hero-letter.is-unrevealing {
-    animation: letter-hover-out 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: none;
 }
 
 @keyframes letter-hover-pop {
     0% {
-        transform: scale(1.25) rotate(-3deg);
+        transform: scale(1.25);
     }
 
     50% {
-        transform: scale(0.97) rotate(1deg);
+        transform: scale(0.97);
     }
 
     100% {
-        transform: scale(1.06) rotate(0deg);
+        transform: scale(1.06);
     }
 }
 
 @keyframes letter-hover-out {
     0% {
-        transform: scale(1.06) rotate(0deg);
+        transform: scale(1.06);
     }
 
     40% {
-        transform: scale(0.95) rotate(-1deg);
+        transform: scale(0.95);
     }
 
     100% {
-        transform: scale(1) rotate(0deg);
+        transform: scale(1);
     }
 }
 
@@ -2283,22 +2598,39 @@ a.contact__info-value:hover {
     }
 }
 
-/* ─── HERO PORTRAIT (behind text) ────────────────────────────── */
+/* ─── HERO PORTRAIT — BACKGROUND GLOW (torch in the dark) ────── */
+/* Marilyn image fills the hero area from below the nav to the title
+   bottom edge. A radial spotlight mask follows the cursor. */
 .hero__portrait {
     position: absolute;
-    right: -2%;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 40vh;
-    width: auto;
-    object-fit: contain;
-    mix-blend-mode: luminosity;
-    opacity: 0.2;
-    z-index: -1;
-    filter: contrast(1.1) saturate(0.7) brightness(0.8);
+    top: 56px;               /* starts just below the nav */
+    left: 0;
+    right: 0;
+    bottom: 0;               /* extends to bottom of hero */
+    z-index: 0;
     pointer-events: none;
-    mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.95) 10%, rgba(0, 0, 0, 0) 60%);
-    -webkit-mask-image: linear-gradient(to left, rgba(0, 0, 0, 0.95) 10%, rgba(0, 0, 0, 0) 60%);
+
+    /* Marilyn background */
+    background-image: url('assets/marlyn.png');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+
+    /* Deep crimson glow — Warhol pop tint */
+    filter: sepia(1) saturate(8) hue-rotate(300deg) contrast(1.2) brightness(1.1);
+
+    /* Spotlight mask — hidden by default (cursor at -999) */
+    -webkit-mask-image: radial-gradient(circle 280px at var(--glow-x, -999px) var(--glow-y, -999px),
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.55) 28%,
+            rgba(0, 0, 0, 0.18) 52%,
+            transparent 72%);
+    mask-image: radial-gradient(circle 280px at var(--glow-x, -999px) var(--glow-y, -999px),
+            rgba(0, 0, 0, 0.9) 0%,
+            rgba(0, 0, 0, 0.55) 28%,
+            rgba(0, 0, 0, 0.18) 52%,
+            transparent 72%);
+    will-change: mask-image, -webkit-mask-image;
 }
 
 .hero__title {
@@ -2558,8 +2890,8 @@ a.contact__info-value:hover {
     }
 
     .hero__portrait {
-        height: 35vh;
-        opacity: 0.15;
+        background-size: cover;
+        top: 48px;
     }
 
     .pop-stamp {

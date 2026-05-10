@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sahil Kamble — Portfolio</title>
-  <meta name="description" content="Sahil Kamble — BBA Graduate, Digital Marketer & Product Builder. A Warhol-inspired creative portfolio showcasing marketing, tech, and innovation." />
-  <meta name="keywords" content="Sahil Kamble, Portfolio, BBA, Marketing, Digital Marketing, NirogOS, SaaS, Product Builder" />
+  <meta name="description"
+    content="Sahil Kamble — BBA Graduate, Digital Marketer & Product Builder. A Warhol-inspired creative portfolio showcasing marketing, tech, and innovation." />
+  <meta name="keywords"
+    content="Sahil Kamble, Portfolio, BBA, Marketing, Digital Marketing, NirogOS, SaaS, Product Builder" />
   <meta property="og:title" content="Sahil Kamble — Portfolio" />
   <meta property="og:description" content="BBA Graduate · Marketing · Tech · Product Builder" />
   <meta property="og:type" content="website" />
@@ -13,7 +16,9 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Six+Caps&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
 
   <!-- GSAP + ScrollTrigger + SplitText -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -22,7 +27,106 @@
 
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+
+  <!-- ═══════════════════ LOADING SCREEN ═══════════════════ -->
+  <div class="loader" id="loader">
+    <div class="loader__grain"></div>
+
+    <!-- Top-Left Metadata -->
+    <div class="loader__meta-left">
+      <div class="loader__meta-row">
+        <span class="loader__meta-label">YEAR:</span>
+        <span class="loader__meta-value">2026</span>
+        <span class="loader__meta-desc">From a marketing mind</span>
+      </div>
+      <div class="loader__meta-row">
+        <span class="loader__meta-label">STORY:</span>
+        <span class="loader__meta-value">PORTFOLIO</span>
+        <span class="loader__meta-desc">to building products</span>
+      </div>
+      <div class="loader__meta-row">
+        <span class="loader__meta-label">DEPT. OF:</span>
+        <span class="loader__meta-value">IDEAS & IMPACT</span>
+        <span class="loader__meta-desc">that create impact.</span>
+      </div>
+    </div>
+
+    <!-- Top-Right Categories -->
+    <div class="loader__meta-right-top">
+      <div class="loader__categories">
+        <span>MARKETING</span>
+        <span>TECHNOLOGY</span>
+        <span>CULTURE</span>
+      </div>
+      <div class="loader__dot"></div>
+    </div>
+
+    <!-- Center Cross Grid (5×6) -->
+    <div class="loader__cross-grid" id="loader-grid">
+      <!-- Row 1: _, X, X, X, _ -->
+      <div class="loader__cell loader__cell--empty"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--empty"></div>
+
+      <!-- Row 2: X, X, X, X, X -->
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+
+      <!-- Row 3: _, X, X, X, _ -->
+      <div class="loader__cell loader__cell--empty"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--empty"></div>
+
+      <!-- Row 4: X, X, X, X, X -->
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+
+      <!-- Row 5: _, X, X, X, _ -->
+      <div class="loader__cell loader__cell--empty"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--empty"></div>
+
+      <!-- Row 6: _, _, X, _, _ -->
+      <div class="loader__cell loader__cell--empty"></div>
+      <div class="loader__cell loader__cell--empty"></div>
+      <div class="loader__cell loader__cell--img"></div>
+      <div class="loader__cell loader__cell--empty"></div>
+      <div class="loader__cell loader__cell--empty"></div>
+    </div>
+
+    <!-- Bottom-Left Exhibit Info -->
+    <div class="loader__exhibit">
+      <span class="loader__exhibit-label">EXHIBIT</span>
+      <span class="loader__exhibit-label">COLLECTION</span>
+      <span class="loader__exhibit-num">01 / 01</span>
+    </div>
+
+    <!-- Bottom Progress Bar -->
+    <div class="loader__progress-bar">
+      <div class="loader__progress-fill" id="loader-progress-fill"></div>
+    </div>
+
+    <!-- Bottom-Right Loading Counter -->
+    <div class="loader__counter">
+      <span class="loader__counter-label">LOADING</span>
+      <span class="loader__counter-num" id="loader-counter-num">0</span>
+      <span class="loader__counter-pct">%</span>
+    </div>
+  </div>
 
   <!-- Custom Cursor -->
   <div class="cursor" id="cursor"></div>
@@ -41,15 +145,17 @@
   <div class="hire-badge" id="hire-badge">
     <svg viewBox="0 0 200 200" width="130" height="130">
       <defs>
-        <path id="circlePath" d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0"/>
+        <path id="circlePath" d="M100,100 m-70,0 a70,70 0 1,1 140,0 a70,70 0 1,1 -140,0" />
       </defs>
-      <circle cx="100" cy="100" r="75" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-dasharray="6 4"/>
-      <circle cx="100" cy="100" r="60" fill="none" stroke="var(--yellow)" stroke-width="1"/>
+      <circle cx="100" cy="100" r="75" fill="none" stroke="var(--yellow)" stroke-width="2" stroke-dasharray="6 4" />
+      <circle cx="100" cy="100" r="60" fill="none" stroke="var(--yellow)" stroke-width="1" />
       <text font-family="'Space Mono', monospace" font-size="14" fill="var(--yellow)" letter-spacing="6">
         <textPath href="#circlePath">HIRE ME ✦ AVAILABLE ✦ CREATIVE ✦ </textPath>
       </text>
-      <text x="100" y="95" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="28" fill="var(--yellow)">OPEN</text>
-      <text x="100" y="118" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="20" fill="var(--pink)">TO WORK</text>
+      <text x="100" y="95" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="28"
+        fill="var(--yellow)">OPEN</text>
+      <text x="100" y="118" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="20"
+        fill="var(--pink)">TO WORK</text>
     </svg>
   </div>
 
@@ -117,17 +223,24 @@
       <span>Pop Icon</span>
     </div>
 
+    <!-- Background Marilyn image with spotlight effect -->
+    <div class="hero__portrait" id="hero-portrait"></div>
+
     <div class="hero__title-container">
-      <img src="assets/hero-portrait.png" alt="Pop art portrait" class="hero__portrait" />
       <h1 class="hero__title" id="hero-title">
-        <span class="hero__title-line hero__title-line--1"><span class="hero-letter" data-art="assets/letter-art-s.png">S</span><span class="hero-letter" data-art="assets/letter-art-a.png">A</span><span class="hero-letter" data-art="assets/letter-art-h.png">H</span><span class="hero-letter" data-art="assets/letter-art-i.png">I</span><span class="hero-letter" data-art="assets/letter-art-l.png">L</span></span>
+        <span class="hero__title-line hero__title-line--1"><span class="hero-letter"
+            data-art="assets/letter-art-s.png">S</span><span class="hero-letter"
+            data-art="assets/letter-art-a.png">A</span><span class="hero-letter"
+            data-art="assets/letter-art-h.png">H</span><span class="hero-letter"
+            data-art="assets/letter-art-i.png">I</span><span class="hero-letter"
+            data-art="assets/letter-art-l.png">L</span></span>
       </h1>
     </div>
 
     <div class="hero__meta">
       <div class="hero__meta-left">
         <span class="hero__meta-tag">∞</span>
-        <span class="hero__meta-location">PUNE,<br/>MAHARASHTRA,<br/>INDIA</span>
+        <span class="hero__meta-location">PUNE,<br />MAHARASHTRA,<br />INDIA</span>
       </div>
       <div class="hero__meta-center">
         <span class="hero__meta-role">BBA GRADUATE</span>
@@ -165,7 +278,10 @@
       </div>
       <div class="profile__content">
         <p class="profile__text" id="profile-text">
-          Motivated BBA graduate with hands-on experience in digital marketing, content creation, and independently deploying a live SaaS product. Combines a marketing-oriented academic foundation with practical exposure to data tools and technology. Currently pursuing Tech-Enabled Finance certification. Seeking opportunities to contribute to sales, marketing, or operations while gaining structured corporate experience.
+          Motivated BBA graduate with hands-on experience in digital marketing, content creation, and independently
+          deploying a live SaaS product. Combines a marketing-oriented academic foundation with practical exposure to
+          data tools and technology. Currently pursuing Tech-Enabled Finance certification. Seeking opportunities to
+          contribute to sales, marketing, or operations while gaining structured corporate experience.
         </p>
       </div>
       <!-- Pop Art Certified Stamp -->
@@ -191,7 +307,8 @@
       <div class="quote-section__tag-sub">( From Marketing to Code and Back Again )</div>
       <div class="quote-section__tag-year">© 2026</div>
       <blockquote class="quote-section__text" id="quote-text">
-        I believe in building things that matter — blending business strategy with technology to create real-world impact.
+        I believe in building things that matter — blending business strategy with technology to create real-world
+        impact.
       </blockquote>
       <div class="quote-section__markers">
         <span class="quote-marker">SAHIL™</span>
@@ -321,15 +438,18 @@
       <div class="experience__card-body">
         <div class="experience__item">
           <span class="experience__bullet">→</span>
-          <p>Developed visual assets and creatives for branding campaigns across Instagram, Facebook, and other digital platforms.</p>
+          <p>Developed visual assets and creatives for branding campaigns across Instagram, Facebook, and other digital
+            platforms.</p>
         </div>
         <div class="experience__item">
           <span class="experience__bullet">→</span>
-          <p>Designed and managed promotional content including social media posts, banners, and campaign collateral.</p>
+          <p>Designed and managed promotional content including social media posts, banners, and campaign collateral.
+          </p>
         </div>
         <div class="experience__item">
           <span class="experience__bullet">→</span>
-          <p>Gained hands-on exposure to content calendars, scheduling tools, and social media optimisation workflows.</p>
+          <p>Gained hands-on exposure to content calendars, scheduling tools, and social media optimisation workflows.
+          </p>
         </div>
       </div>
       <div class="experience__card-decorators">
@@ -377,11 +497,13 @@
           <div class="project-card__details">
             <div class="project-card__detail">
               <span class="project-card__detail-bullet">→</span>
-              <p>Independently built and deployed a full-stack clinic management platform using React and Supabase, featuring real-time patient queuing, EMR, and mobile-responsive scheduling.</p>
+              <p>Independently built and deployed a full-stack clinic management platform using React and Supabase,
+                featuring real-time patient queuing, EMR, and mobile-responsive scheduling.</p>
             </div>
             <div class="project-card__detail">
               <span class="project-card__detail-bullet">→</span>
-              <p>Managed end-to-end product lifecycle: requirement gathering, UI design, front-end development, backend integration, and Vercel deployment.</p>
+              <p>Managed end-to-end product lifecycle: requirement gathering, UI design, front-end development, backend
+                integration, and Vercel deployment.</p>
             </div>
           </div>
         </div>
@@ -409,11 +531,13 @@
           <div class="project-card__details">
             <div class="project-card__detail">
               <span class="project-card__detail-bullet">→</span>
-              <p>Conducted a descriptive field study (n=100) analysing how social media advertising influences buying behaviour among college students.</p>
+              <p>Conducted a descriptive field study (n=100) analysing how social media advertising influences buying
+                behaviour among college students.</p>
             </div>
             <div class="project-card__detail">
               <span class="project-card__detail-bullet">→</span>
-              <p>Designed questionnaire, collected primary data, and derived insights on platform-specific ad effectiveness.</p>
+              <p>Designed questionnaire, collected primary data, and derived insights on platform-specific ad
+                effectiveness.</p>
             </div>
           </div>
         </div>
@@ -433,11 +557,13 @@
           <div class="project-card__details">
             <div class="project-card__detail">
               <span class="project-card__detail-bullet">→</span>
-              <p>Investigated the economic viability of organic farming, supply chain challenges, and government support schemes in India.</p>
+              <p>Investigated the economic viability of organic farming, supply chain challenges, and government support
+                schemes in India.</p>
             </div>
             <div class="project-card__detail">
               <span class="project-card__detail-bullet">→</span>
-              <p>Synthesised secondary research into a structured analytical report with policy-level recommendations.</p>
+              <p>Synthesised secondary research into a structured analytical report with policy-level recommendations.
+              </p>
             </div>
           </div>
         </div>
@@ -622,4 +748,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>

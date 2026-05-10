@@ -7,6 +7,139 @@
 /* ─── PLUGIN REGISTRATION ───────────────────────────────────── */
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+/* ═══════════════════════════════════════════════════════════════
+   0. LOADING SCREEN — Warhol Cross-Grid Image Shuffle
+═══════════════════════════════════════════════════════════════ */
+(function initLoader() {
+    const loader = document.getElementById('loader');
+    const counterNum = document.getElementById('loader-counter-num');
+    const progressFill = document.getElementById('loader-progress-fill');
+    const frameCells = document.querySelectorAll('.loader__cell--img');
+
+    if (!loader) return;
+
+    /* ── Portfolio image pool ──────────────────────────────── */
+    const imagePaths = [
+        'assets/sahil.png',
+        'assets/sahil w.png',
+        'assets/hero-portrait.png',
+        'assets/sahilhero (1).jpg',
+        'assets/letter-art-1.png',
+        'assets/letter-art-2.png',
+        'assets/letter-art-3.png',
+        'assets/letter-art-4.png',
+        'assets/letter-art-5.png',
+        'assets/letter-art-a.png',
+        'assets/letter-art-h.png',
+        'assets/letter-art-i.png',
+        'assets/letter-art-l.png',
+        'assets/letter-art-s.png',
+    ];
+
+    /* Preload images */
+    const loadedImages = [];
+    let imagesLoaded = 0;
+
+    imagePaths.forEach((src) => {
+        const img = new Image();
+        img.onload = () => {
+            imagesLoaded++;
+            loadedImages.push(src);
+        };
+        img.onerror = () => {
+            imagesLoaded++;
+        };
+        img.src = src;
+    });
+
+    /* ── Set up background positions for the 5×6 puzzle grid ─────── */
+    const allCells = document.querySelectorAll('.loader__cell');
+    const cols = 5;
+    const rows = 6;
+    const cellSize = 88;
+    const gapSize = 2;
+
+    /* Each cell gets a pixel offset so the image tiles seamlessly */
+    allCells.forEach((cell, i) => {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const posX = -(col * (cellSize + gapSize));
+        const posY = -(row * (cellSize + gapSize));
+        cell.style.backgroundPosition = `${posX}px ${posY}px`;
+    });
+
+    function shuffleCells() {
+        /* 1. Pick a new image for the whole puzzle */
+        if (loadedImages.length > 0) {
+            const randomImg = loadedImages[Math.floor(Math.random() * loadedImages.length)];
+            frameCells.forEach((cell) => {
+                cell.style.backgroundImage = `url('${randomImg}')`;
+            });
+        }
+
+        /* 2. Randomly toggle ~25% of image cells to solid black (missing pieces) */
+        frameCells.forEach((cell) => {
+            if (Math.random() < 0.25) {
+                cell.classList.add('is-solid');
+            } else {
+                cell.classList.remove('is-solid');
+            }
+        });
+    }
+
+    /* Initial shuffle */
+    shuffleCells();
+
+    /* Keep shuffling every 400ms during loading */
+    const shuffleInterval = setInterval(shuffleCells, 400);
+
+    /* ── Loading counter animation ────────────────────────── */
+    let currentPercent = 0;
+    const loadDuration = 3000; /* 3 seconds minimum load time */
+    const startTime = Date.now();
+
+    function updateCounter() {
+        const elapsed = Date.now() - startTime;
+        const rawProgress = Math.min(elapsed / loadDuration, 1);
+
+        /* Ease out the progress for dramatic effect */
+        const easedProgress = 1 - Math.pow(1 - rawProgress, 3);
+        currentPercent = Math.round(easedProgress * 100);
+
+        if (counterNum) counterNum.textContent = currentPercent;
+        if (progressFill) progressFill.style.width = currentPercent + '%';
+
+        if (currentPercent < 100) {
+            requestAnimationFrame(updateCounter);
+        } else {
+            /* Loading complete — dismiss */
+            clearInterval(shuffleInterval);
+
+            setTimeout(() => {
+                loader.classList.add('is-done');
+
+                /* Remove from DOM after transition */
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 900);
+            }, 300);
+        }
+    }
+
+    requestAnimationFrame(updateCounter);
+
+    /* ── Prevent scrolling during loading ─────────────────── */
+    document.body.style.overflow = 'hidden';
+
+    const observer = new MutationObserver(() => {
+        if (loader.classList.contains('is-done')) {
+            document.body.style.overflow = '';
+            observer.disconnect();
+        }
+    });
+    observer.observe(loader, { attributes: true, attributeFilter: ['class'] });
+})();
+
 /* ─── GLOBAL STATE ──────────────────────────────────────────── */
 const state = {
     scrollVelocity: 0,
@@ -923,41 +1056,43 @@ window.addEventListener('resize', () => {
             // Remove any lingering unrevealing class
             letter.classList.remove('is-unrevealing');
 
-            // Set the art as background and reveal
+            // Set the art as background — NO movement/tilt/scale
             letter.style.backgroundImage = `url(${artSrc})`;
             letter.classList.add('is-revealed');
-
-            // Light tilt on hover
-            gsap.to(letter, {
-                rotation: -4,
-                scale: 1.03,
-                duration: 0.4,
-                ease: 'power2.out'
-            });
         });
 
         // ── MOUSE LEAVE: revert to solid text ────────────────
         letter.addEventListener('mouseleave', () => {
-            // Remove revealed state
             letter.classList.remove('is-revealed');
-            letter.classList.add('is-unrevealing');
-
-            // Animate back to normal
-            gsap.to(letter, {
-                scale: 1,
-                rotation: 0,
-                duration: 0.4,
-                ease: 'power2.out',
-                onComplete: () => {
-                    // Clear background image after transition
-                    letter.style.backgroundImage = '';
-                    letter.classList.remove('is-unrevealing');
-                    // Reset fill color
-                    letter.style.webkitTextFillColor = '';
-                    letter.style.color = '';
-                },
-            });
+            // Clear background image immediately
+            letter.style.backgroundImage = '';
+            letter.style.webkitTextFillColor = '';
+            letter.style.color = '';
         });
+    });
+})();
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO BACKGROUND GLOW — Torch-in-the-dark spotlight
+   Mouse acts like a fire revealing the red-glowing portrait
+   behind the text. Updates CSS mask custom properties.
+═══════════════════════════════════════════════════════════════ */
+(function initHeroBackgroundGlow() {
+    const hero = document.querySelector('.hero');
+    const portrait = document.getElementById('hero-portrait');
+    if (!hero || !portrait) return;
+
+    hero.addEventListener('mousemove', (e) => {
+        const rect = portrait.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        portrait.style.setProperty('--glow-x', x + 'px');
+        portrait.style.setProperty('--glow-y', y + 'px');
+    });
+
+    hero.addEventListener('mouseleave', () => {
+        portrait.style.setProperty('--glow-x', '-999px');
+        portrait.style.setProperty('--glow-y', '-999px');
     });
 })();
 
