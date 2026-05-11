@@ -18,22 +18,13 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
     if (!loader) return;
 
-    /* ── Portfolio image pool ──────────────────────────────── */
+    /* ── Loading screen image pool ─────────────────────────── */
     const imagePaths = [
-        'assets/sahil.png',
-        'assets/sahil w.png',
-        'assets/hero-portrait.png',
-        'assets/sahilhero (1).jpg',
-        'assets/letter-art-1.png',
-        'assets/letter-art-2.png',
-        'assets/letter-art-3.png',
-        'assets/letter-art-4.png',
-        'assets/letter-art-5.png',
-        'assets/letter-art-a.png',
-        'assets/letter-art-h.png',
-        'assets/letter-art-i.png',
-        'assets/letter-art-l.png',
-        'assets/letter-art-s.png',
+        'assets/Loading Screen/Playboy X Butcher Billy _ The Unreleased Art Pieces - Butcher Billy.jpeg',
+        'assets/Loading Screen/The Art of Retro Illustration_ Connecting Past and Present.jpeg',
+        'assets/Loading Screen/_ (1).jpeg',
+        'assets/Loading Screen/_.jpeg',
+        'assets/Loading Screen/_ (2).jpeg',
     ];
 
     /* Preload images */
@@ -343,7 +334,6 @@ const state = {
 ═══════════════════════════════════════════════════════════════ */
 (function initSectionReveals() {
     const sections = [
-        { el: '.profile', children: '.profile__container > *' },
         { el: '.skills', children: '.skills__header > *, .skill-card' },
         { el: '.experience', children: '.experience__header > *, .experience__card' },
         { el: '.projects', children: '.projects__header, .project-card' },
@@ -377,43 +367,146 @@ const state = {
 })();
 
 /* ═══════════════════════════════════════════════════════════════
-   4. PROFILE TEXT — WORD-BY-WORD REVEAL
+   4. PROFILE SECTION — EDITORIAL SCROLL ANIMATION
 ═══════════════════════════════════════════════════════════════ */
-(function initProfileTextReveal() {
+(function initProfileSection() {
+    const profile = document.querySelector('.profile');
+    const profileTitle = document.getElementById('profile-title');
     const profileText = document.getElementById('profile-text');
-    if (!profileText) return;
+    const tapeLabel = document.querySelector('.profile__tape-label');
+    const markers = document.querySelectorAll('.profile__marker');
+    const cta = document.getElementById('profile-cta');
+    const decBar = document.querySelector('.profile__dec-bar');
+    const header = document.querySelector('.profile__header');
+    const leftSticker = document.querySelector('.profile__sticker--left');
+    const rightSticker = document.querySelector('.profile__sticker--right');
 
-    /* Split into word spans */
-    const rawText = profileText.textContent.trim();
-    const words = rawText.split(/\s+/);
-    profileText.innerHTML = words
-        .map((w) => `<span class="profile-word">${w}</span>`)
-        .join(' ');
+    if (!profile || !profileTitle || !profileText) return;
 
-    const wordEls = profileText.querySelectorAll('.profile-word');
+    /* ── Initial hidden states ─────────────────────────────── */
+    if (header) gsap.set(header, { opacity: 0, y: -20 });
+    if (tapeLabel) gsap.set(tapeLabel, { opacity: 0, y: 20, rotation: -3 });
+    gsap.set(profileTitle, { y: 80, opacity: 0 });
+    gsap.set(markers, { opacity: 0, scale: 0.8 });
+    if (cta) gsap.set(cta, { opacity: 0, y: 30 });
+    if (decBar) gsap.set(decBar, { opacity: 0 });
+    if (leftSticker) gsap.set(leftSticker, { x: -180, opacity: 0, rotate: -28 });
+    if (rightSticker) gsap.set(rightSticker, { x: 180, opacity: 0, rotate: 20 });
 
-    gsap.set(wordEls, { opacity: 0.12 });
+    /* ── Entrance timeline ─────────────────────────────────── */
+    const enterTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: profile,
+            start: 'top 78%',
+            once: true,
+        },
+    });
 
-    /* Reading highlight — words illuminate as they scroll into view */
+    /* Section header fades in */
+    if (header) {
+        enterTl.to(header, {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: 'power3.out',
+        });
+    }
+
+    /* Tape label slides in with rotation */
+    if (tapeLabel) {
+        enterTl.to(tapeLabel, {
+            opacity: 1,
+            y: 0,
+            rotation: -1,
+            duration: 0.7,
+            ease: 'power3.out',
+        }, '-=0.3');
+    }
+
+    /* Title cascades up */
+    enterTl.to(profileTitle, {
+        y: 0,
+        opacity: 1,
+        duration: 1.1,
+        ease: 'power4.out',
+    }, '-=0.4');
+
+    /* Markers pop in */
+    enterTl.to(markers, {
+        opacity: 1,
+        scale: 1,
+        duration: 0.5,
+        stagger: 0.08,
+        ease: 'back.out(2)',
+    }, '-=0.5');
+
+    /* CTA fades up */
+    if (cta) {
+        enterTl.to(cta, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+        }, '-=0.3');
+    }
+
+    /* Decorative bar fades in */
+    if (decBar) {
+        enterTl.to(decBar, {
+            opacity: 0.5,
+            duration: 0.6,
+            ease: 'power2.out',
+        }, '-=0.4');
+    }
+
+    /* Stickers fly in */
+    if (leftSticker) {
+        enterTl.to(leftSticker, {
+            x: 0,
+            opacity: 1,
+            rotate: -16,
+            duration: 0.8,
+            ease: 'back.out(1.8)',
+        }, '-=0.6');
+    }
+
+    if (rightSticker) {
+        enterTl.to(rightSticker, {
+            x: 0,
+            opacity: 1,
+            rotate: 12,
+            duration: 0.8,
+            ease: 'back.out(1.8)',
+        }, '-=0.7');
+    }
+
+    /* ── Scroll color change: white → red ──────────────────── */
+    gsap.fromTo(profileTitle, 
+        { color: '#e8e0d4' },
+        {
+            color: '#ff3b3b',
+            scrollTrigger: {
+                trigger: profile,
+                start: 'top 40%',
+                end: 'top -20%',
+                scrub: 0.8,
+            },
+        }
+    );
+
+    /* ── Typewriter effect on scroll ───────────────────────── */
+    const rawText = profileText.dataset.fullText || profileText.textContent.trim();
+    profileText.dataset.fullText = rawText;
+    profileText.textContent = rawText.slice(0, 1);
+
     ScrollTrigger.create({
-        trigger: profileText,
-        start: 'top 75%',
-        end: 'bottom 35%',
-        scrub: 0.6,
+        trigger: profile,
+        start: 'top 55%',
+        end: 'top -30%',
+        scrub: 0.2,
         onUpdate: (self) => {
-            const progress = self.progress;
-            const totalWords = wordEls.length;
-            const litCount = Math.round(progress * totalWords * 1.15); /* slight lead */
-
-            wordEls.forEach((word, i) => {
-                const targetOpacity = i < litCount ? 1 : 0.12;
-                gsap.to(word, {
-                    opacity: targetOpacity,
-                    duration: 0.4,
-                    ease: 'none',
-                    overwrite: 'auto',
-                });
-            });
+            const visibleChars = Math.max(1, Math.floor(rawText.length * self.progress));
+            profileText.textContent = rawText.slice(0, visibleChars);
         },
     });
 })();
@@ -1159,7 +1252,9 @@ window.addEventListener('resize', () => {
             letter.classList.remove('is-unrevealing');
 
             // Set the art as background — NO movement/tilt/scale
-            letter.style.backgroundImage = `url(${artSrc})`;
+            letter.style.backgroundImage = `url("${artSrc}")`;
+            letter.style.setProperty('--hero-art-position', letter.dataset.artPosition || 'center center');
+            letter.style.setProperty('--hero-art-size', letter.dataset.artSize || 'auto 120%');
             letter.classList.add('is-revealed');
         });
 
@@ -1168,6 +1263,8 @@ window.addEventListener('resize', () => {
             letter.classList.remove('is-revealed');
             // Clear background image immediately
             letter.style.backgroundImage = '';
+            letter.style.removeProperty('--hero-art-position');
+            letter.style.removeProperty('--hero-art-size');
             letter.style.webkitTextFillColor = '';
             letter.style.color = '';
         });

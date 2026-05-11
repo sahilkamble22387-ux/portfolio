@@ -960,78 +960,262 @@ body::before {
 
 /* ─── PROFILE SECTION ───────────────────────────────────────── */
 .profile {
-    padding: 6rem 3rem;
+    min-height: 220vh;
     border-top: 1px solid var(--border);
-}
-
-.profile__container {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 4rem;
-    align-items: start;
     position: relative;
+    overflow: clip;
+    background:
+        radial-gradient(circle at 50% 18%, rgba(255, 255, 255, 0.06), transparent 28%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0)),
+        #050505;
 }
 
-.profile__label {
+.profile__stage {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    position: sticky;
-    top: 80px;
+    align-items: center;
+    justify-content: center;
+    padding: 6rem 3rem 4rem;
 }
 
-.profile__label-num {
-    font-family: var(--font-display);
-    font-size: 4rem;
-    line-height: 1;
-    color: var(--text-dim);
-    display: block;
+.profile__stage::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.045), transparent 24%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0));
+    pointer-events: none;
 }
 
-.profile__label-text {
+/* Section Header — matches skills/experience numbering style */
+.profile__header {
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    z-index: 5;
+}
+
+.profile__num {
     font-family: var(--font-mono);
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
     color: var(--text-muted);
-    display: block;
 }
 
-.profile__label-line {
-    display: block;
-    width: 40px;
-    height: 1px;
-    background: var(--border-light);
-    margin-top: 4px;
+.profile__header-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
 }
 
+.profile__arrows {
+    color: var(--yellow);
+    font-size: 0.8rem;
+}
+
+/* Content */
 .profile__content {
-    padding-top: 1rem;
+    position: relative;
+    z-index: 3;
+    width: min(100%, 860px);
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+/* Tape label — editorial decoration */
+.profile__tape-label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 1.2rem;
+    margin-bottom: 1.8rem;
+    background: rgba(200, 200, 180, 0.06);
+    border: 1px solid rgba(200, 200, 180, 0.08);
+    transform: rotate(-1deg);
+}
+
+.profile__tape-text {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.profile__tape-sub {
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    color: var(--text-dim);
+}
+
+.profile__tape-asterisk {
+    color: var(--yellow);
+    font-size: 12px;
+}
+
+/* Title — large editorial single line */
+.profile__title {
+    position: relative;
+    z-index: 3;
+    margin: 0;
+    font-family: 'Druk Cond Super Trial', var(--font-display);
+    font-size: clamp(5.6rem, 15vw, 12rem);
+    line-height: 0.88;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    will-change: color, transform;
+}
+
+/* Decorative markers */
+.profile__markers {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    margin-top: 1.2rem;
+    margin-bottom: 0.6rem;
+}
+
+.profile__marker {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    padding: 0.2rem 0.6rem;
+    border: 1px solid rgba(232, 224, 212, 0.08);
+    text-transform: uppercase;
+}
+
+.profile__marker--accent {
+    color: var(--yellow);
+    border-color: rgba(245, 213, 71, 0.2);
+}
+
+/* Copy / paragraph */
+.profile__copy {
+    position: relative;
+    z-index: 3;
+    width: min(100%, 620px);
+    min-height: 11.5rem;
+    margin-top: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile__text {
+    margin: 0;
     font-family: var(--font-body);
-    font-size: 1.1rem;
-    line-height: 1.85;
-    color: var(--text);
-    max-width: 680px;
+    font-size: clamp(1rem, 1.55vw, 1.12rem);
+    line-height: 1.8;
+    color: rgba(232, 224, 212, 0.92);
     letter-spacing: 0.01em;
 }
 
-.profile__decorators {
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    opacity: 0.15;
+.profile__text::after {
+    content: '|';
+    display: inline-block;
+    margin-left: 0.12em;
+    color: var(--pink);
+    animation: profile-caret 1s steps(1) infinite;
 }
 
-.profile__dec {
+@keyframes profile-caret {
+    0%, 49% {
+        opacity: 1;
+    }
+
+    50%, 100% {
+        opacity: 0;
+    }
+}
+
+/* CTA Button — Download CV */
+.profile__cta {
+    position: relative;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-width: 180px;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 0;
+    border: 2px solid var(--yellow);
+    background: transparent;
+    color: var(--yellow);
     font-family: var(--font-mono);
-    font-size: 1.2rem;
-    color: var(--text);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.4s var(--ease-out-expo);
+    cursor: pointer;
+}
+
+.profile__cta:hover {
+    background: var(--yellow);
+    color: #0a0a0a;
+    box-shadow: 0 0 30px rgba(245, 213, 71, 0.3), 0 0 60px rgba(245, 213, 71, 0.1);
+    transform: translateY(-2px);
+}
+
+.profile__cta-icon {
+    font-size: 1.1rem;
+    transition: transform 0.3s ease;
+}
+
+.profile__cta:hover .profile__cta-icon {
+    animation: bounce-down 0.6s ease infinite;
+}
+
+@keyframes bounce-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+}
+
+/* Decorative bar */
+.profile__dec-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    color: var(--text-dim);
+    opacity: 0.5;
+}
+
+/* Stickers */
+.profile__stickers {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.profile__sticker {
+    pointer-events: auto;
+    z-index: 4;
 }
 
 /* ─── QUOTE SECTION ─────────────────────────────────────────── */
@@ -2380,24 +2564,41 @@ body::before {
         padding: 4rem 1.25rem;
     }
 
-    .profile__container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+    .profile__header {
+        left: 1.25rem;
+        top: 1.5rem;
     }
 
-    .profile__label {
-        position: static;
-        flex-direction: row;
-        align-items: baseline;
-        gap: 1rem;
+    .profile__stage {
+        padding: 5rem 1rem 3rem;
     }
 
-    .profile__label-num {
-        font-size: 2rem;
+    .profile__title {
+        font-size: clamp(3.6rem, 14vw, 6rem);
     }
 
-    .profile__decorators {
-        display: none;
+    .profile__copy {
+        min-height: 12.5rem;
+    }
+
+    .profile__markers {
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .profile__dec-bar {
+        gap: 0.6rem;
+    }
+
+    .profile__sticker--left {
+        left: -8px !important;
+        top: 40% !important;
+    }
+
+    .profile__sticker--right {
+        right: -4px !important;
+        top: 15% !important;
     }
 
     /* Quote */
@@ -2641,6 +2842,8 @@ body::before {
     display: inline-block;
     cursor: pointer;
     position: relative;
+    line-height: 1;
+    padding: 0.08em 0.015em 0.12em;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
         color 0.3s ease,
         text-shadow 0.3s ease,
@@ -2652,7 +2855,8 @@ body::before {
     background-position: center;
     background-repeat: no-repeat;
     will-change: transform;
-    margin-right: -0.045em;
+    overflow: visible;
+    margin: -0.08em -0.045em -0.12em 0;
     /* Texture: subtle emboss/depth effect on each letter */
     text-shadow:
         2px 3px 0px rgba(0, 0, 0, 0.3),
@@ -2670,8 +2874,8 @@ body::before {
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
-    background-size: 100% 100%;
-    background-position: 0% 0%;
+    background-size: var(--hero-art-size, cover);
+    background-position: var(--hero-art-position, center center);
     background-repeat: no-repeat;
     text-shadow: none;
     filter: none;
