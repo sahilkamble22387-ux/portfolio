@@ -342,29 +342,109 @@
     </div>
   </section>
 
-  <!-- ═══════════════════ QUOTE SECTION ═══════════════════ -->
-  <section class="quote-section" id="quote">
-    <div class="quote-section__inner">
-      <div class="quote-section__tag">The Philosophy of Sahil Kamble</div>
-      <div class="quote-section__tag-sub">( From Marketing to Code and Back Again )</div>
-      <div class="quote-section__tag-year">© 2026</div>
-      <blockquote class="quote-section__text" id="quote-text">
-        I believe in building things that matter — blending business strategy with technology to create real-world
-        impact.
-      </blockquote>
-      <div class="quote-section__markers">
-        <span class="quote-marker">SAHIL™</span>
-        <span class="quote-marker">POP▲</span>
-        <span class="quote-marker quote-marker--vote">
-          <span>HIRE</span>
-          <span>ME</span>
-        </span>
+  <!-- ═══════════════════ CIRCLE REVEAL SECTION ═══════════════════ -->
+  <section class="reveal-section" id="zipper-reveal">
+    <!-- Cloth overlay — covers content, circle hole grows on scroll -->
+    <div class="reveal__cloth" id="reveal-cloth">
+      <div class="reveal__cloth-texture"></div>
+
+      <!-- Text on the closed cloth -->
+      <div class="reveal__closed-copy reveal__closed-copy--top">
+        <span class="reveal__closed-tag">VIDEO EDITOR • CREATIVE STORYTELLER</span>
+        <p class="reveal__closed-subtitle">Scroll to reveal the reel. Every frame tells a story.</p>
+      </div>
+
+      <div class="reveal__closed-copy reveal__closed-copy--left">
+        <span class="reveal__closed-line">I EDIT.</span>
+        <span class="reveal__closed-line reveal__closed-line--red">YOU FEEL.</span>
+        <span class="reveal__closed-line">THAT'S THE CUT.</span>
+      </div>
+
+      <div class="reveal__closed-copy reveal__closed-copy--right">
+        <span class="reveal__closed-cta">EXPLORE MY WORK →</span>
+        <span class="reveal__closed-note">Featured reels & edits</span>
+      </div>
+
+      <!-- Floating stickers -->
+      <div class="reveal__cloth-decor">
+        <img src="assets/sticker-banana.png" alt="" class="reveal__float-item reveal__float-item--1" />
+        <img src="assets/sticker-banana.png" alt="" class="reveal__float-item reveal__float-item--2" />
+        <img src="assets/sticker-banana.png" alt="" class="reveal__float-item reveal__float-item--3" />
+        <img src="assets/sticker-banana.png" alt="" class="reveal__float-item reveal__float-item--4" />
+        <img src="assets/sticker-banana.png" alt="" class="reveal__float-item reveal__float-item--5" />
+        <img src="assets/sticker-banana.png" alt="" class="reveal__float-item reveal__float-item--6" />
+        <img src="assets/sticker-banana.png" alt="" class="reveal__float-item reveal__float-item--7" />
+        <img src="assets/sticker-banana.png" alt="" class="reveal__float-item reveal__float-item--8" />
+        <img src="assets/sticker-lips.png" alt="" class="reveal__float-item reveal__float-item--9" />
+        <img src="assets/sticker-lips.png" alt="" class="reveal__float-item reveal__float-item--10" />
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="reveal__scroll-hint" id="reveal-scroll-hint">
+        <span class="reveal__scroll-hint-text">SCROLL TO REVEAL</span>
+        <div class="reveal__scroll-hint-arrows">
+          <span>⌄</span><span>⌄</span><span>⌄</span>
+        </div>
       </div>
     </div>
 
-    <!-- Sticker: WOW in quote -->
-    <div class="pop-sticker pop-sticker--small" data-draggable style="top:10%;right:6%;transform:rotate(8deg)">
-      <img src="assets/sticker-wow.png" alt="WOW starburst" draggable="false" />
+    <!-- Content revealed behind the cloth -->
+    <div class="reveal__inner" id="reveal-inner">
+      <div class="reveal__inner-bg"></div>
+
+      <div class="reveal__inner-header">
+        <span class="reveal__inner-tag">VIDEO EDITOR • CREATIVE STORYTELLER</span>
+        <p class="reveal__inner-subtitle">I turn raw footage into powerful stories.<br>Fast cuts. Clean edits. <span class="reveal__accent">Real impact.</span></p>
+      </div>
+
+      <!-- Bento grid of reel links -->
+      <div class="reveal__bento-grid">
+        <!-- Row 1: large featured + two stacked -->
+        <a class="reveal__bento-item reveal__bento-item--tall reveal__bento-item--one" href="https://www.instagram.com/reel/DHGa2BOMksJ/" target="_blank" rel="noopener" data-label="CINEMATIC EDIT">
+          <span class="reveal__play-mark">PLAY</span>
+          <span class="reveal__video-meta">Reel 01</span>
+        </a>
+        <a class="reveal__bento-item reveal__bento-item--two" href="https://www.instagram.com/reel/DH-r1LqsrQw/" target="_blank" rel="noopener" data-label="MUSIC VIDEO">
+          <span class="reveal__play-mark">PLAY</span>
+          <span class="reveal__video-meta">Reel 02</span>
+        </a>
+        <a class="reveal__bento-item reveal__bento-item--three" href="https://www.instagram.com/reel/DFxYlcbMYGK/" target="_blank" rel="noopener" data-label="COLOR GRADING">
+          <span class="reveal__play-mark">PLAY</span>
+          <span class="reveal__video-meta">Reel 03</span>
+        </a>
+
+        <!-- Row 2: medium items -->
+        <a class="reveal__bento-item reveal__bento-item--four" href="https://www.instagram.com/reel/DSSvg2WjJS8/" target="_blank" rel="noopener" data-label="FAST CUTS">
+          <span class="reveal__play-mark">PLAY</span>
+          <span class="reveal__video-meta">Reel 04</span>
+        </a>
+        <a class="reveal__bento-item reveal__bento-item--wide reveal__bento-item--five" href="https://www.instagram.com/reel/DNGESM7MTs1/" target="_blank" rel="noopener" data-label="BRAND FILM">
+          <span class="reveal__play-mark">PLAY</span>
+          <span class="reveal__video-meta">Reel 05</span>
+        </a>
+        <a class="reveal__bento-item reveal__bento-item--six" href="https://www.instagram.com/p/DYHqEAxjFZ6/" target="_blank" rel="noopener" data-label="EDITORIAL">
+          <span class="reveal__play-mark">PLAY</span>
+          <span class="reveal__video-meta">Post 06</span>
+        </a>
+
+        <!-- Row 3: final item -->
+        <a class="reveal__bento-item reveal__bento-item--wide reveal__bento-item--seven" href="https://www.instagram.com/reel/DXZqq96iPF-/" target="_blank" rel="noopener" data-label="EVENT EDIT">
+          <span class="reveal__play-mark">PLAY</span>
+          <span class="reveal__video-meta">Reel 07</span>
+        </a>
+      </div>
+
+      <div class="reveal__inner-footer">
+        <div class="reveal__inner-headline">
+          <span class="reveal__headline-line">I EDIT.</span>
+          <span class="reveal__headline-line reveal__headline-line--red">YOU FEEL.</span>
+          <span class="reveal__headline-line">THAT'S THE CUT.</span>
+        </div>
+        <div class="reveal__inner-cta">
+          <a href="https://www.instagram.com/" target="_blank" class="reveal__cta-badge">VIEW ALL ON INSTAGRAM →</a>
+          <span class="reveal__cta-sub">Scroll to discover more ⌄</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -375,35 +455,66 @@
 
   <!-- ═══════════════════ SKILLS SECTION ═══════════════════ -->
   <section class="skills" id="skills">
+    <div class="skills__backdrop" aria-hidden="true">
+      <span class="skills__dotfield skills__dotfield--left"></span>
+      <span class="skills__dotfield skills__dotfield--right"></span>
+      <span class="skills__brush skills__brush--cyan"></span>
+      <span class="skills__brush skills__brush--pink"></span>
+    </div>
+
     <div class="skills__header">
       <span class="skills__num">00_2</span>
-      <h2 class="skills__title">SKILLS</h2>
-      <span class="skills__year">2026</span>
+      <div class="skills__meta">
+        <span>YEAR: 2026</span>
+        <span>DEPT. OF BUILDING</span>
+      </div>
     </div>
-    <div class="skills__grid">
+
+    <div class="skills__hero">
+      <h2 class="skills__title">SKILLS</h2>
+      <div class="skills__copy">
+        <div class="skills__plus-row" aria-hidden="true">
+          <span>+</span><span>+</span><span>+</span>
+        </div>
+        <p>A blend of marketing strategy, data, and technology to build products and drive growth.</p>
+        <span class="skills__scribble" aria-hidden="true"></span>
+      </div>
+      <div class="skills__seal" aria-hidden="true">
+        <span>OPEN</span>
+        <span>TO WORK</span>
+      </div>
+    </div>
+
+    <div class="skills__grid" aria-label="Skill categories">
       <!-- Business & Research -->
-      <div class="skill-card" data-color="red">
+      <article class="skill-card" data-color="red">
+        <div class="skill-card__chrome">
+          <span>+</span>
+          <span>01</span>
+        </div>
         <div class="skill-card__header">
-          <span class="skill-card__icon">+</span>
-          <span class="skill-card__category">Business & Research</span>
+          <h3 class="skill-card__category">Business & Research</h3>
         </div>
         <div class="skill-card__body">
           <span class="skill-card__tag">Market & competitor research</span>
           <span class="skill-card__tag">Descriptive field studies</span>
           <span class="skill-card__tag">Data analysis & reporting</span>
         </div>
+        <span class="skill-card__print" aria-hidden="true"></span>
         <div class="skill-card__footer">
-          <span>+</span>
-          <span>+</span>
-          <span>+</span>
+          <span>VIEW DETAILS</span>
+          <span>-></span>
         </div>
-      </div>
+      </article>
 
       <!-- Tech & Tools -->
-      <div class="skill-card" data-color="yellow">
+      <article class="skill-card" data-color="yellow">
+        <div class="skill-card__chrome">
+          <span>+</span>
+          <span>02</span>
+        </div>
         <div class="skill-card__header">
-          <span class="skill-card__icon">+</span>
-          <span class="skill-card__category">Tech & Tools</span>
+          <h3 class="skill-card__category">Tech & Tools</h3>
         </div>
         <div class="skill-card__body">
           <span class="skill-card__tag">MS Excel (Pivot, VLOOKUP)</span>
@@ -412,18 +523,21 @@
           <span class="skill-card__tag">WordPress / Elementor</span>
           <span class="skill-card__tag">Supabase</span>
         </div>
+        <span class="skill-card__print" aria-hidden="true"></span>
         <div class="skill-card__footer">
-          <span>+</span>
-          <span>+</span>
-          <span>+</span>
+          <span>VIEW DETAILS</span>
+          <span>-></span>
         </div>
-      </div>
+      </article>
 
       <!-- AI & IDEs -->
-      <div class="skill-card" data-color="cyan">
+      <article class="skill-card" data-color="cyan">
+        <div class="skill-card__chrome">
+          <span>+</span>
+          <span>03</span>
+        </div>
         <div class="skill-card__header">
-          <span class="skill-card__icon">+</span>
-          <span class="skill-card__category">AI & IDEs</span>
+          <h3 class="skill-card__category">AI & IDEs</h3>
         </div>
         <div class="skill-card__body">
           <span class="skill-card__tag">Claude (Anthropic)</span>
@@ -432,30 +546,38 @@
           <span class="skill-card__tag">Cursor IDE</span>
           <span class="skill-card__tag">GitHub Copilot / Codex</span>
         </div>
+        <span class="skill-card__print" aria-hidden="true"></span>
         <div class="skill-card__footer">
-          <span>+</span>
-          <span>+</span>
-          <span>+</span>
+          <span>VIEW DETAILS</span>
+          <span>-></span>
         </div>
-      </div>
+      </article>
 
       <!-- Content & Marketing -->
-      <div class="skill-card" data-color="pink">
+      <article class="skill-card" data-color="pink">
+        <div class="skill-card__chrome">
+          <span>+</span>
+          <span>04</span>
+        </div>
         <div class="skill-card__header">
-          <span class="skill-card__icon">+</span>
-          <span class="skill-card__category">Content & Marketing</span>
+          <h3 class="skill-card__category">Content & Marketing</h3>
         </div>
         <div class="skill-card__body">
           <span class="skill-card__tag">Digital Content Creation</span>
           <span class="skill-card__tag">Social Media Marketing</span>
           <span class="skill-card__tag">WooCommerce</span>
         </div>
+        <span class="skill-card__print" aria-hidden="true"></span>
         <div class="skill-card__footer">
-          <span>+</span>
-          <span>+</span>
-          <span>+</span>
+          <span>VIEW DETAILS</span>
+          <span>-></span>
         </div>
-      </div>
+      </article>
+    </div>
+
+    <div class="skills__stickers" aria-hidden="true">
+      <img class="skills__sticker skills__sticker--wow" src="assets/sticker-wow.png" alt="" draggable="false" />
+      <img class="skills__sticker skills__sticker--lips" src="assets/sticker-lips.png" alt="" draggable="false" />
     </div>
   </section>
 

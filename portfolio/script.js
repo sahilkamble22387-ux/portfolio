@@ -334,7 +334,6 @@ const state = {
 ═══════════════════════════════════════════════════════════════ */
 (function initSectionReveals() {
     const sections = [
-        { el: '.skills', children: '.skills__header > *, .skill-card' },
         { el: '.experience', children: '.experience__header > *, .experience__card' },
         { el: '.projects', children: '.projects__header, .project-card' },
         { el: '.education', children: '.education__header > *, .education__item, .certifications' },
@@ -481,7 +480,7 @@ const state = {
     }
 
     /* ── Scroll color change: white → red ──────────────────── */
-    gsap.fromTo(profileTitle, 
+    gsap.fromTo(profileTitle,
         { color: '#e8e0d4' },
         {
             color: '#ff3b3b',
@@ -512,91 +511,201 @@ const state = {
 })();
 
 /* ═══════════════════════════════════════════════════════════════
-   5. QUOTE SECTION — PARALLAX
+   5. CIRCLE REVEAL ANIMATION
 ═══════════════════════════════════════════════════════════════ */
-(function initQuoteParallax() {
-    const quoteSection = document.getElementById('quote');
-    if (!quoteSection) return;
+(function initCircleReveal() {
+    const revealSection = document.getElementById('zipper-reveal');
+    if (!revealSection) return;
 
-    const quoteText = quoteSection.querySelector('.quote-section__text');
-    const quoteMarkers = quoteSection.querySelectorAll('.quote-marker');
+    const cloth = document.getElementById('reveal-cloth');
+    const innerContent = document.getElementById('reveal-inner');
+    const scrollHint = document.getElementById('reveal-scroll-hint');
+    const clothDecor = revealSection.querySelector('.reveal__cloth-decor');
+    const closedCopy = revealSection.querySelectorAll('.reveal__closed-copy');
+    const videoCards = revealSection.querySelectorAll('.reveal__bento-item');
 
-    /* Text parallax — moves up slower than scroll */
-    if (quoteText) {
-        gsap.to(quoteText, {
-            y: -50,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: quoteSection,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1.2,
-            },
+    if (!cloth || !innerContent || !videoCards.length) return;
+
+    const clamp = gsap.utils.clamp(0, 1);
+    const lerp = gsap.utils.interpolate;
+    const ease = gsap.parseEase('power3.inOut');
+
+    function setCircleReveal(progress) {
+        const openingProgress = clamp(progress / 0.82);
+        const finalReveal = clamp((progress - 0.82) / 0.18);
+        const eased = ease(openingProgress);
+        const copyProgress = clamp(progress / 0.54);
+        const radius = lerp(0, state.isMobile ? 150 : 118, eased);
+        const ringOpacity = progress < 0.96 ? lerp(0, 1, clamp(progress * 4)) : lerp(1, 0, finalReveal);
+
+        revealSection.style.setProperty('--reveal-radius', `${radius}vmax`);
+        revealSection.style.setProperty('--reveal-ring-opacity', ringOpacity.toFixed(3));
+        cloth.style.setProperty('--reveal-radius', `${radius}vmax`);
+        cloth.style.setProperty('--reveal-edge', `${Math.max(0, radius - 3)}vmax`);
+
+        gsap.set(cloth, {
+            opacity: lerp(1, 0, finalReveal),
         });
+
+        gsap.set(innerContent, {
+            opacity: lerp(0.08, 1, clamp((progress - 0.04) / 0.7)),
+            scale: lerp(0.96, 1, eased),
+            filter: `blur(${lerp(14, 0, eased)}px)`,
+        });
+
+        if (scrollHint) {
+            gsap.set(scrollHint, {
+                opacity: lerp(1, 0, clamp(progress * 3.2)),
+                y: lerp(0, -18, eased),
+            });
+        }
+
+        if (clothDecor) {
+            gsap.set(clothDecor, {
+                opacity: lerp(1, 0, clamp(progress / 0.72)),
+                scale: lerp(1, 1.08, eased),
+            });
+        }
+
+        if (closedCopy.length) {
+            gsap.set(closedCopy, {
+                opacity: lerp(1, 0, copyProgress),
+                y: lerp(0, -24, copyProgress),
+            });
+        }
+
+        videoCards.forEach((card, index) => {
+            const cardProgress = clamp((progress - 0.18 - index * 0.035) / 0.44);
+            gsap.set(card, {
+                opacity: lerp(0, 1, cardProgress),
+                y: lerp(34, 0, cardProgress),
+                scale: lerp(0.96, 1, cardProgress),
+            });
+        });
+
+        revealSection.classList.toggle('is-revealed', progress > 0.96);
     }
 
-    /* Markers rotate & drift on scroll */
-    quoteMarkers.forEach((marker, i) => {
-        const dir = i % 2 === 0 ? 1 : -1;
-        gsap.to(marker, {
-            rotation: dir * 8,
-            y: dir * -20,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: quoteSection,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1.5,
-            },
-        });
-    });
+    setCircleReveal(0);
 
-    /* Entrance animation */
-    gsap.set(quoteText, { opacity: 0, y: 40 });
     ScrollTrigger.create({
-        trigger: quoteSection,
-        start: 'top 75%',
-        once: true,
-        onEnter: () => {
-            gsap.to(quoteText, {
-                opacity: 1,
-                y: 0,
-                duration: 1.2,
-                ease: 'power4.out',
-            });
+        trigger: revealSection,
+        start: 'top top',
+        end: state.isMobile ? '+=220%' : '+=185%',
+        scrub: 0.75,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+            setCircleReveal(self.progress);
         },
     });
 })();
 
 /* ═══════════════════════════════════════════════════════════════
-   6. SKILL CARDS — STAGGERED ENTRANCE WITH ROTATION
+   6. SKILLS — SCROLL-BUILT CARD DECK + READY-STATE 3D HOVER
 ═══════════════════════════════════════════════════════════════ */
 (function initSkillCards() {
-    const skillCards = document.querySelectorAll('.skill-card');
+    const skillsSection = document.querySelector('.skills');
+    const skillCards = gsap.utils.toArray('.skill-card');
+
+    if (!skillsSection) return;
     if (!skillCards.length) return;
 
-    gsap.set(skillCards, { y: 40, opacity: 0, rotation: 1.5 });
+    const brushEls = skillsSection.querySelectorAll('.skills__brush');
+    const cardRotations = [-2.4, 1.1, -0.9, 2.2];
 
-    ScrollTrigger.create({
-        trigger: '.skills__grid',
-        start: 'top 78%',
-        once: true,
-        onEnter: () => {
-            gsap.to(skillCards, {
-                y: 0,
-                opacity: 1,
-                rotation: 0,
-                duration: 0.9,
-                stagger: 0.15,
-                ease: 'power3.out',
-            });
-        },
+    function setCardsReady(isReady) {
+        skillsSection.classList.toggle('skills--cards-ready', isReady);
+    }
+
+    function isDeckReady(progress) {
+        return progress > 0.82;
+    }
+
+    skillCards.forEach((card, i) => {
+        card.dataset.restRotation = cardRotations[i] || 0;
     });
 
-    /* Subtle hover tilt on desktop */
+    gsap.set(skillCards, {
+        y: state.isMobile ? 54 : 190,
+        opacity: 0,
+        rotationX: state.isMobile ? 0 : 18,
+        rotationZ: (i) => cardRotations[i] || 0,
+        scale: 0.92,
+        z: -40,
+        transformPerspective: 1000,
+    });
+
+    if (state.isMobile) {
+        const mobileTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: skillsSection,
+                start: 'top 74%',
+                once: true,
+                onEnter: () => setCardsReady(true),
+            },
+        });
+
+        mobileTl
+            .to(skillCards, {
+                y: 0,
+                opacity: 1,
+                rotationX: 0,
+                scale: 1,
+                z: 0,
+                duration: 0.78,
+                stagger: 0.14,
+                ease: 'power3.out',
+            }, '-=0.25');
+    } else {
+        const skillsTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '.skills__grid',
+                start: 'top 92%',
+                end: 'top 28%',
+                scrub: 0.65,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => setCardsReady(isDeckReady(self.progress)),
+                onRefresh: (self) => setCardsReady(isDeckReady(self.progress)),
+                onLeave: () => setCardsReady(true),
+                onLeaveBack: () => setCardsReady(false),
+            },
+        });
+
+        skillsTl
+            .to(brushEls, {
+                x: (i) => i === 0 ? 80 : -70,
+                duration: 0.55,
+                ease: 'none',
+            }, 0);
+
+        skillCards.forEach((card, i) => {
+            skillsTl.to(card, {
+                y: 0,
+                opacity: 1,
+                rotationX: 0,
+                scale: 1,
+                z: 0,
+                duration: 0.18,
+                ease: 'power3.out',
+            }, 0.18 + i * 0.16);
+        });
+
+        skillsTl.to(skillCards, {
+            y: -8,
+            duration: 0.16,
+            stagger: 0.025,
+            ease: 'sine.inOut',
+        }, 0.9);
+    }
+
+    /* Hover tilt unlocks after the scroll-built deck is complete. */
     if (!state.isMobile) {
         skillCards.forEach((card) => {
             card.addEventListener('mousemove', (e) => {
+                if (!skillsSection.classList.contains('skills--cards-ready')) return;
+
                 const rect = card.getBoundingClientRect();
                 const cx = rect.left + rect.width / 2;
                 const cy = rect.top + rect.height / 2;
@@ -604,19 +713,26 @@ const state = {
                 const dy = (e.clientY - cy) / (rect.height / 2);
 
                 gsap.to(card, {
-                    rotateY: dx * 4,
-                    rotateX: -dy * 4,
-                    duration: 0.4,
-                    ease: 'power2.out',
-                    transformPerspective: 800,
+                    rotateY: dx * 12,
+                    rotateX: -dy * 8,
+                    z: 34,
+                    scale: 1.025,
+                    duration: 0.34,
+                    ease: 'power3.out',
+                    transformPerspective: 1000,
                 });
             });
 
             card.addEventListener('mouseleave', () => {
+                const restRotation = parseFloat(card.dataset.restRotation || '0');
+
                 gsap.to(card, {
                     rotateY: 0,
                     rotateX: 0,
-                    duration: 0.6,
+                    z: 0,
+                    scale: 1,
+                    rotationZ: restRotation,
+                    duration: 0.65,
                     ease: 'power3.out',
                 });
             });
@@ -980,7 +1096,7 @@ const state = {
 ═══════════════════════════════════════════════════════════════ */
 (function initSectionNumbers() {
     const numbers = document.querySelectorAll(
-        '.skills__num, .experience__num, .projects__num, .education__num'
+        '.experience__num, .projects__num, .education__num'
     );
 
     numbers.forEach((el) => {
@@ -1008,7 +1124,7 @@ const state = {
 ═══════════════════════════════════════════════════════════════ */
 (function initSectionTitles() {
     const titleEls = document.querySelectorAll(
-        '.skills__title, .experience__title, .projects .projects__pop-label, .education__title'
+        '.experience__title, .projects .projects__pop-label, .education__title'
     );
 
     titleEls.forEach((titleEl) => {
